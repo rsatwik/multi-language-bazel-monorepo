@@ -1,10 +1,10 @@
-load("@python_deps//:requirements.bzl","requirement")
+# load("@python_deps//:requirements.bzl","requirement")
 
-py_binary(
-    name = "main",
-    deps = [
-            "//projects/calculator:calculator",
-            requirement("Flask")
-    ],
-    srcs = ["main.py"],
-)
+# py_binary(
+#     name = "main",
+#     deps = [
+#             "//projects/calculator:calculator",
+#             requirement("Flask")
+#     ],
+#     srcs = ["main.py"],
+# )
