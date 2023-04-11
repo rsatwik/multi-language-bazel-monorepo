@@ -1,3 +1,7 @@
+workspace(
+    name = "mutli_langualge-bazel-monorepo",
+)
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 rules_python_version = "740825b7f74930c62f44af95c9a4c1bd428d2c53" # Latest @ 2021-06-23
@@ -51,3 +55,25 @@ go_rules_dependencies()
 go_register_toolchains(version = "1.19.5")
 
 gazelle_dependencies(go_repository_default_config = "//:WORKSPACE")
+
+## NodeJS ######
+
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "94070eff79305be05b7699207fbac5d2608054dd53e6109f7d00d923919ff45a",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.8.2/rules_nodejs-5.8.2.tar.gz"],
+)
+
+load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_dependencies")
+
+build_bazel_rules_nodejs_dependencies()
+
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories","yarn_install")
+node_repositories()
+
+# bazel run @yarn//:yarn
+yarn_install(
+    name = "npm",
+    package_json = "//:package.json",
+    yarn_lock = "//:yarn.lock",
+)
